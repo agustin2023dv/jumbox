@@ -1,3 +1,4 @@
+from . import Ciudad
 class Domicilio:
     """
     Clase que representa un domicilio en una base de datos.
