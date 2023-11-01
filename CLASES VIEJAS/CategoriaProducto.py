@@ -39,39 +39,51 @@ class CategoriaProducto:
         """
         Guarda la categoría en la base de datos.
         """
-        consulta = "INSERT INTO categoria_producto (nombre, descripcion) VALUES (?, ?)"
-        parametros = (self.nombre, self.descripcion)
-        db.ejecutar_consulta(consulta, parametros)
-        db.conexion.commit()
+        try:
+            consulta = "INSERT INTO categoria_producto (nombre, descripcion) VALUES (?, ?)"
+            parametros = (self.nombre, self.descripcion)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al guardar la categoría: {str(e)}")
 
     def actualizar(self, db):
         """
         Actualiza la categoría en la base de datos.
         """
-        consulta = "UPDATE categoria_producto SET nombre=?, descripcion=? WHERE id_categoria_producto=?"
-        parametros = (self.nombre, self.descripcion, self.id_categoria)
-        db.ejecutar_consulta(consulta, parametros)
-        db.conexion.commit()
+        try:
+            consulta = "UPDATE categoria_producto SET nombre=?, descripcion=? WHERE id_categoria_producto=?"
+            parametros = (self.nombre, self.descripcion, self.id_categoria)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al actualizar la categoría: {str(e)}")
 
     def eliminar(self, db):
         """
         Elimina la categoría de la base de datos.
         """
-        consulta = "DELETE FROM categoria_producto WHERE id_categoria_producto = ?"
-        parametros = (self.id_categoria,)
-        db.ejecutar_consulta(consulta, parametros)
-        db.conexion.commit()
+        try:
+            consulta = "DELETE FROM categoria_producto WHERE id_categoria_producto = ?"
+            parametros = (self.id_categoria,)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al eliminar la categoría: {str(e)}")
 
     @classmethod
     def obtener_por_id(cls, db, id_categoria):
         """
         Obtiene una categoría por su ID desde la base de datos.
         """
-        consulta = "SELECT * FROM categoria_producto WHERE id_categoria_producto = ?"
-        parametros = (id_categoria,)
-        resultado = db.ejecutar_consulta(consulta, parametros)
-        if resultado:
-            fila = resultado.fetchone()
-            if fila:
-                return cls(*fila)
+        try:
+            consulta = "SELECT * FROM categoria_producto WHERE id_categoria_producto = ?"
+            parametros = (id_categoria,)
+            resultado = db.ejecutar_consulta(consulta, parametros)
+            if resultado:
+                fila = resultado.fetchone()
+                if fila:
+                    return cls(*fila)
+        except Exception as e:
+            print(f"Error al obtener la categoría por ID: {str(e)}")
         return None

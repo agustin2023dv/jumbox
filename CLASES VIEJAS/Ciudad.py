@@ -5,69 +5,85 @@ class Ciudad:
     Atributos:
         - id_ciudad (int): Identificador único de la ciudad.
         - nombre_ciudad (str): Nombre de la ciudad.
-        - provincia (Provincia): Provincia a la que pertenece la ciudad. En la base de datos, provincia seria FK en la tabla ciudad.
+        - provincia_id (int): ID de la provincia a la que pertenece la ciudad.
 
     Métodos:
-        - __init__(id_ciudad, nombre_ciudad, provincia): Inicializa un objeto Ciudad.
-        - __str__(): Devuelve una representación en cadena de los atributos de la ciudad.
-        - get_id_ciudad(): Obtiene el ID de la ciudad.
-        - get_nombre_ciudad(): Obtiene el nombre de la ciudad.
-        - get_provincia(): Obtiene la provincia a la que pertenece la ciudad.
-        - set_id_ciudad(id_ciudad): Establece el ID de la ciudad.
-        - set_nombre_ciudad(nombre_ciudad): Establece el nombre de la ciudad.
-        - set_provincia(provincia): Establece la provincia a la que pertenece la ciudad.
+        - __init__(self, id_ciudad, nombre_ciudad, provincia_id): Inicializa un objeto Ciudad.
+        - __str__(self): Devuelve una representación en cadena de los atributos de la ciudad.
+        - guardar(self, db): Guarda la ciudad en la base de datos.
+        - actualizar(self, db): Actualiza la ciudad en la base de datos.
+        - eliminar(self, db): Elimina la ciudad de la base de datos.
+        - obtener_por_id(cls, db, id_ciudad): Obtiene una ciudad por su ID desde la base de datos.
+
+    Uso:
+        Esta clase se utiliza para representar y gestionar ciudades en una base de datos.
     """
-    
-    def __init__(self, id_ciudad, nombre_ciudad, provincia):
+
+    def __init__(self, id_ciudad, nombre_ciudad, provincia_id):
         """
         Inicializa un objeto Ciudad con los atributos proporcionados.
         """
-        self.__id_ciudad = id_ciudad
-        self.__nombre_ciudad = nombre_ciudad
-        self.__provincia = provincia
+        self.id_ciudad = id_ciudad
+        self.nombre_ciudad = nombre_ciudad
+        self.provincia_id = provincia_id
 
     def __str__(self):
         """
         Devuelve una representación en cadena de la ciudad.
         """
-        return f"ID Ciudad: {self.__id_ciudad}\n" \
-               f"Nombre Ciudad: {self.__nombre_ciudad}\n" \
-               f"Provincia: {self.__provincia.get_nombre_provincia()}"
+        return f"ID Ciudad: {self.id_ciudad}\n" \
+               f"Nombre Ciudad: {self.nombre_ciudad}\n" \
+               f"Provincia ID: {self.provincia_id}"
 
-    # Getters
-    def get_id_ciudad(self):
+    def guardar(self, db):
         """
-        Obtiene el ID de la ciudad.
+        Guarda la ciudad en la base de datos.
         """
-        return self.__id_ciudad
+        try:
+            consulta = "INSERT INTO ciudad (nombre, provincia_id) VALUES (?, ?)"
+            parametros = (self.nombre_ciudad, self.provincia_id)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al guardar la ciudad: {str(e)}")
 
-    def get_nombre_ciudad(self):
+    def actualizar(self, db):
         """
-        Obtiene el nombre de la ciudad.
+        Actualiza la ciudad en la base de datos.
         """
-        return self.__nombre_ciudad
+        try:
+            consulta = "UPDATE ciudad SET nombre=?, provincia_id=? WHERE id_ciudad=?"
+            parametros = (self.nombre_ciudad, self.provincia_id, self.id_ciudad)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al actualizar la ciudad: {str(e)}")
 
-    def get_provincia(self):
+    def eliminar(self, db):
         """
-        Obtiene la provincia a la que pertenece la ciudad.
+        Elimina la ciudad de la base de datos.
         """
-        return self.__provincia
+        try:
+            consulta = "DELETE FROM ciudad WHERE id_ciudad = ?"
+            parametros = (self.id_ciudad,)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al eliminar la ciudad: {str(e)}")
 
-    # Setters
-    def set_id_ciudad(self, id_ciudad):
+    @classmethod
+    def obtener_por_id(cls, db, id_ciudad):
         """
-        Establece el ID de la ciudad.
+        Obtiene una ciudad por su ID desde la base de datos.
         """
-        self.__id_ciudad = id_ciudad
-
-    def set_nombre_ciudad(self, nombre_ciudad):
-        """
-        Establece el nombre de la ciudad.
-        """
-        self.__nombre_ciudad = nombre_ciudad
-
-    def set_provincia(self, provincia):
-        """
-        Establece la provincia a la que pertenece la ciudad.
-        """
-        self.__provincia = provincia
+        try:
+            consulta = "SELECT * FROM ciudad WHERE id_ciudad = ?"
+            parametros = (id_ciudad,)
+            resultado = db.ejecutar_consulta(consulta, parametros)
+            if resultado:
+                fila = resultado.fetchone()
+                if fila:
+                    return cls(*fila)
+        except Exception as e:
+            print(f"Error al obtener la ciudad por ID: {str(e)}")
+        return None
