@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1 class="bg-primary">Bienvenido {{nombre}}</h1>
+
+<main class="container">
+    <h2>Gestionar productos</h2>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Detalles del Producto</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Descripción</th>
+                        <th>Stock</th>
+                        <th>Stock Mínimo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto[1] }}</td>  {# Suponiendo que el nombre del producto está en la segunda posición en la consulta SQL #}
+                            <td>{{ producto[3] }}</td>  {# Suponiendo que el precio del producto está en la cuarta posición en la consulta SQL #}
+                            <td>{{ producto[2] }}</td>  {# Suponiendo que la descripción del producto está en la tercera posición en la consulta SQL #}
+                            <td>{{ producto[6] }}</td>  {# Suponiendo que el stock del producto está en la sexta posición en la consulta SQL #}
+                            <td>{{ producto[7] }}</td>  {# Suponiendo que el stock mínimo del producto está en la séptima posición en la consulta SQL #}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
