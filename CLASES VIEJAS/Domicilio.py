@@ -5,71 +5,88 @@ class Domicilio:
     Atributos:
         - id_domicilio (int): Identificador único del domicilio.
         - domicilio (str): Dirección del domicilio.
-        - ciudad (Ciudad): Ciudad a la que pertenece el domicilio. En la base de datos, ciudad seria FK en la tabla domicilio
+        - ciudad (Ciudad): Ciudad a la que pertenece el domicilio. En la base de datos, ciudad sería una FK en la tabla domicilio.
 
     Métodos:
-        - __init__(id_domicilio, domicilio, ciudad): Inicializa un objeto Domicilio.
-        - __str__(): Devuelve una representación en cadena de los atributos del domicilio.
-        - get_id_domicilio(): Obtiene el ID del domicilio.
-        - get_domicilio(): Obtiene la dirección del domicilio.
-        - get_ciudad(): Obtiene la ciudad a la que pertenece el domicilio.
-        - set_id_domicilio(id_domicilio): Establece el ID del domicilio.
-        - set_domicilio(domicilio): Establece la dirección del domicilio.
-        - set_ciudad(ciudad): Establece la ciudad a la que pertenece el domicilio.
+        - __init__(self, id_domicilio, domicilio, ciudad): Inicializa un objeto Domicilio.
+        - __str__(self): Devuelve una representación en cadena de los atributos del domicilio.
+        - guardar(self, db): Guarda el domicilio en la base de datos.
+        - actualizar(self, db): Actualiza el domicilio en la base de datos.
+        - eliminar(self, db): Elimina el domicilio de la base de datos.
+        - obtener_por_id(cls, db, id_domicilio): Obtiene un domicilio por su ID desde la base de datos.
+
+    Uso:
+        Esta clase se utiliza para representar y gestionar domicilios en una base de datos.
     """
-    
+
     def __init__(self, id_domicilio, domicilio, ciudad):
         """
         Inicializa un objeto Domicilio con los atributos proporcionados.
         """
-        self.__id_domicilio = id_domicilio
-        self.__domicilio = domicilio
-        self.__ciudad = ciudad
+        self.id_domicilio = id_domicilio
+        self.domicilio = domicilio
+        self.ciudad = ciudad
 
     def __str__(self):
         """
         Devuelve una representación en cadena del domicilio.
         """
-        ciudad_nombre = self.__ciudad.get_nombre_ciudad()
-        provincia_nombre = self.__ciudad.get_provincia().get_nombre_provincia()
-        return f"ID Domicilio: {self.__id_domicilio}\n" \
-               f"Domicilio: {self.__domicilio}\n" \
+        ciudad_nombre = self.ciudad.get_nombre_ciudad()
+        provincia_nombre = self.ciudad.get_provincia().get_nombre_provincia()
+        return f"ID Domicilio: {self.id_domicilio}\n" \
+               f"Domicilio: {self.domicilio}\n" \
                f"Ciudad: {ciudad_nombre}, Provincia: {provincia_nombre}"
 
-    # Getters
-    def get_id_domicilio(self):
+    def guardar(self, db):
         """
-        Obtiene el ID del domicilio.
+        Guarda el domicilio en la base de datos.
         """
-        return self.__id_domicilio
+        try:
+            consulta = "INSERT INTO domicilio (direccion, ciudad_id) VALUES (?, ?)"
+            parametros = (self.domicilio, self.ciudad.get_id_ciudad())
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al guardar el domicilio: {str(e)}")
 
-    def get_domicilio(self):
+    def actualizar(self, db):
         """
-        Obtiene la dirección del domicilio.
+        Actualiza el domicilio en la base de datos.
         """
-        return self.__domicilio
+        try:
+            consulta = "UPDATE domicilio SET direccion=?, ciudad_id=? WHERE id_domicilio=?"
+            parametros = (self.domicilio, self.ciudad.get_id_ciudad(), self.id_domicilio)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al actualizar el domicilio: {str(e)}")
 
-    def get_ciudad(self):
+    def eliminar(self, db):
         """
-        Obtiene la ciudad a la que pertenece el domicilio.
+        Elimina el domicilio de la base de datos.
         """
-        return self.__ciudad
+        try:
+            consulta = "DELETE FROM domicilio WHERE id_domicilio = ?"
+            parametros = (self.id_domicilio,)
+            db.ejecutar_consulta(consulta, parametros)
+            db.conexion.commit()
+        except Exception as e:
+            print(f"Error al eliminar el domicilio: {str(e)}")
 
-    # Setters
-    def set_id_domicilio(self, id_domicilio):
+    @classmethod
+    def obtener_por_id(cls, db, id_domicilio):
         """
-        Establece el ID del domicilio.
+        Obtiene un domicilio por su ID desde la base de datos.
         """
-        self.__id_domicilio = id_domicilio
-
-    def set_domicilio(self, domicilio):
-        """
-        Establece la dirección del domicilio.
-        """
-        self.__domicilio = domicilio
-
-    def set_ciudad(self, ciudad):
-        """
-        Establece la ciudad a la que pertenece el domicilio.
-        """
-        self.__ciudad = ciudad
+        try:
+            consulta = "SELECT * FROM domicilio WHERE id_domicilio = ?"
+            parametros = (id_domicilio,)
+            resultado = db.ejecutar_consulta(consulta, parametros)
+            if resultado:
+                fila = resultado.fetchone()
+                if fila:
+                    ciudad = Ciudad.obtener_por_id(db, fila[2])
+                    return cls(fila[0], fila[1], ciudad)
+        except Exception as e:
+            print(f"Error al obtener el domicilio por ID: {str(e)}")
+        return None
