@@ -21,7 +21,7 @@ def admin_dashboard():
     # Cierra la conexión a la base de datos
     conn.close()
 
-    return render_template('admin_dashboard.html')
+    return render_template('admin_dashboard.html', productos=productos)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=81, debug=True)

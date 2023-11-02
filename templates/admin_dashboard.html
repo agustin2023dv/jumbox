@@ -1,14 +1,14 @@
-{% extends 'base.html' %}  {# Extiende la plantilla base 'base.html' #}
-{% block body %}
+{% extends 'base.html' %}
 
-<h1 class="bg-primary">Bienvenido {{nombre}}</h1>  {# Muestra un título de bienvenida con el nombre del usuario #}
+{% block body %}
+<h1 class="bg-primary">Bienvenido {{nombre}}</h1>
 
 <main class="container">
-    <h2>Gestionar productos</h2>  {# Título para gestionar productos #}
-
+    <h2>Gestionar productos</h2>
+    
     <div class="card">
         <div class="card-header">
-            <h4>Detalles del Producto</h4>  {# Título de la tarjeta para los detalles del producto #}
+            <h4>Detalles del Producto</h4>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -17,16 +17,14 @@
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Descripción</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     {% for producto in productos %}
                         <tr>
-                            <td>{{ producto[1] }}</td>  {# Muestra el nombre del producto #}
-                            <td>{{ producto[3] }}</td>  {# Muestra el precio del producto #}
-                            <td>{{ producto[2] }}</td>  {# Muestra la descripción del producto #}
-       
+                            <td>{{ producto[0] }}</td>  {# Usar índice 0 para el nombre del producto #}
+                            <td>{{ producto[1] }}</td>  {# Usar índice 1 para el precio del producto #}
+                            <td>{{ producto[2] }}</td>  {# Usar índice 2 para la descripción del producto #}
                         </tr>
                     {% endfor %}
                 </tbody>
