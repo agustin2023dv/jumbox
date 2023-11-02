@@ -167,6 +167,30 @@ CREATE TABLE IF NOT EXISTS detalle_factura (
 );
 """)
 
+# Comando SQL para crear la tabla 'venta'
+create_venta_table = """
+CREATE TABLE IF NOT EXISTS venta (
+    id_venta INTEGER PRIMARY KEY AUTOINCREMENT,
+    fecha DATE,
+    empleado_id INTEGER NOT NULL,
+    sucursal_id INTEGER NOT NULL,
+    FOREIGN KEY (empleado_id) REFERENCES empleado_sucursal (id_empleado_sucursal),
+    FOREIGN KEY (sucursal_id) REFERENCES sucursal (id_sucursal)
+);
+"""
+
+# Comando SQL para crear la tabla 'detalle_venta'
+create_detalle_venta_table = """
+CREATE TABLE IF NOT EXISTS detalle_venta (
+    id_detalle_venta INTEGER PRIMARY KEY AUTOINCREMENT,
+    venta_id INTEGER NOT NULL,
+    producto_id INTEGER NOT NULL,
+    cantidad INTEGER NOT NULL,
+    precio_unitario REAL NOT NULL,
+    FOREIGN KEY (venta_id) REFERENCES venta (id_venta),
+    FOREIGN KEY (producto_id) REFERENCES producto (id_producto)
+);
+"""
 # Guardar los cambios y cerrar la conexión a la base de datos
 conn.commit()
 conn.close()
