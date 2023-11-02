@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}  {# Extiende la plantilla base 'base.html' #}
 {% block body %}
 
-<h1 class="bg-primary">Bienvenido {{nombre}}</h1>
+<h1 class="bg-primary">Bienvenido {{nombre}}</h1>  {# Muestra un título de bienvenida con el nombre del usuario #}
 
 <main class="container">
-    <h2>Gestionar productos</h2>
+    <h2>Gestionar productos</h2>  {# Título para gestionar productos #}
 
     <div class="card">
         <div class="card-header">
-            <h4>Detalles del Producto</h4>
+            <h4>Detalles del Producto</h4>  {# Título de la tarjeta para los detalles del producto #}
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -17,18 +17,16 @@
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Descripción</th>
-                        <th>Stock</th>
-                        <th>Stock Mínimo</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {% for producto in productos %}
                         <tr>
-                            <td>{{ producto[1] }}</td>  {# Suponiendo que el nombre del producto está en la segunda posición en la consulta SQL #}
-                            <td>{{ producto[3] }}</td>  {# Suponiendo que el precio del producto está en la cuarta posición en la consulta SQL #}
-                            <td>{{ producto[2] }}</td>  {# Suponiendo que la descripción del producto está en la tercera posición en la consulta SQL #}
-                            <td>{{ producto[6] }}</td>  {# Suponiendo que el stock del producto está en la sexta posición en la consulta SQL #}
-                            <td>{{ producto[7] }}</td>  {# Suponiendo que el stock mínimo del producto está en la séptima posición en la consulta SQL #}
+                            <td>{{ producto[1] }}</td>  {# Muestra el nombre del producto #}
+                            <td>{{ producto[3] }}</td>  {# Muestra el precio del producto #}
+                            <td>{{ producto[2] }}</td>  {# Muestra la descripción del producto #}
+       
                         </tr>
                     {% endfor %}
                 </tbody>

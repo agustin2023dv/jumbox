@@ -9,7 +9,7 @@ cursor = conn.cursor()
 # Crear la tabla 'provincia'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS provincia (
-    id_provincia INTEGER PRIMARY KEY,
+    id_provincia INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL
 );
 """)
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS provincia (
 # Crear la tabla 'ciudad' con relación a 'provincia'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS ciudad (
-    id_ciudad INTEGER PRIMARY KEY,
+    id_ciudad INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     provincia_id INTEGER NOT NULL,
     FOREIGN KEY (provincia_id) REFERENCES provincia (id_provincia)
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS ciudad (
 # Crear la tabla 'domicilio' con relación a 'ciudad'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS domicilio (
-    id_domicilio INTEGER PRIMARY KEY,
+    id_domicilio INTEGER PRIMARY KEY AUTOINCREMENT,
     direccion TEXT NOT NULL,
     ciudad_id INTEGER NOT NULL,
     FOREIGN KEY (ciudad_id) REFERENCES ciudad (id_ciudad)
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS domicilio (
 # Crear la tabla 'categoria_producto'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS categoria_producto (
-    id_categoria_producto INTEGER PRIMARY KEY,
+    id_categoria_producto INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     descripcion TEXT
 );
@@ -46,51 +46,56 @@ CREATE TABLE IF NOT EXISTS categoria_producto (
 # Crear la tabla 'unidad_medida'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS unidad_medida (
-    id_unidad_medida INTEGER PRIMARY KEY,
+    id_unidad_medida INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     descripcion TEXT
 );
 """)
 
-# Crear la tabla 'stock_producto' con relación a 'unidad_medida'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS stock_producto (
-    id_stock_producto INTEGER PRIMARY KEY,
+    id_stock_producto INTEGER PRIMARY KEY AUTOINCREMENT,
     stock INTEGER NOT NULL,
     stock_minimo INTEGER NOT NULL,
     unidad_medida_id INTEGER NOT NULL,
-    FOREIGN KEY (unidad_medida_id) REFERENCES unidad_medida (id_unidad_medida)
+    producto_id INTEGER NOT NULL,
+    FOREIGN KEY (unidad_medida_id) REFERENCES unidad_medida (id_unidad_medida),
+    FOREIGN KEY (producto_id) REFERENCES producto (id_producto)
 );
 """)
 
 # Crear la tabla 'producto' con relación a 'categoria_producto' y 'stock_producto'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS producto (
-    id_producto INTEGER PRIMARY KEY,
+    id_producto INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     descripcion TEXT,
     precio REAL NOT NULL,
     categoria_id INTEGER NOT NULL,
-    stock_id INTEGER NOT NULL,
-    FOREIGN KEY (categoria_id) REFERENCES categoria_producto (id_categoria_producto),
-    FOREIGN KEY (stock_id) REFERENCES stock_producto (id_stock_producto)
+
+    FOREIGN KEY (categoria_id) REFERENCES categoria_producto (id_categoria_producto)
 );
 """)
 
-# Crear la tabla 'sucursal'
+
+# Crear la tabla 'sucursal' con relación a 'domicilio'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS sucursal (
-    id_sucursal INTEGER PRIMARY KEY,
-    direccion TEXT NOT NULL,
+    id_sucursal INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT,
-    telefono TEXT
+    telefono TEXT,
+    domicilio_id INTEGER NOT NULL,
+    FOREIGN KEY (domicilio_id) REFERENCES domicilio (id_domicilio)
 );
 """)
+
+
+
 
 # Crear la tabla 'sucursal_stock' para la relación muchos a muchos entre 'sucursal' y 'stock_producto'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS sucursal_stock (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     sucursal_id INTEGER NOT NULL,
     stock_id INTEGER NOT NULL,
     FOREIGN KEY (sucursal_id) REFERENCES sucursal (id_sucursal),
@@ -101,7 +106,7 @@ CREATE TABLE IF NOT EXISTS sucursal_stock (
 # Crear la tabla 'sexo'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS sexo (
-    id_sexo INTEGER PRIMARY KEY,
+    id_sexo INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL
 );
 """)
@@ -109,7 +114,7 @@ CREATE TABLE IF NOT EXISTS sexo (
 # Crear la tabla 'empleado_sucursal' con relación a 'sexo', 'domicilio' y 'sucursal'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS empleado_sucursal (
-    id_empleado_sucursal INTEGER PRIMARY KEY,
+    id_empleado_sucursal INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     apellido TEXT NOT NULL,
     sexo_id INTEGER NOT NULL,
@@ -126,7 +131,7 @@ CREATE TABLE IF NOT EXISTS empleado_sucursal (
 # Crear la tabla 'cliente' con relación a 'sexo', 'domicilio' y 'sucursal'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS cliente (
-    id_cliente INTEGER PRIMARY KEY,
+    id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
     apellido TEXT NOT NULL,
     sexo_id INTEGER NOT NULL,
@@ -142,7 +147,7 @@ CREATE TABLE IF NOT EXISTS cliente (
 # Crear la tabla 'factura'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS factura (
-    id_factura INTEGER PRIMARY KEY,
+    id_factura INTEGER PRIMARY KEY AUTOINCREMENT,
     fecha DATE,
     cliente_id INTEGER NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente (id_cliente)
@@ -152,7 +157,7 @@ CREATE TABLE IF NOT EXISTS factura (
 # Crear la tabla 'detalle_factura' con relación a 'factura' y 'producto'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS detalle_factura (
-    id_detalle_factura INTEGER PRIMARY KEY,
+    id_detalle_factura INTEGER PRIMARY KEY AUTOINCREMENT,
     factura_id INTEGER NOT NULL,
     producto_id INTEGER NOT NULL,
     cantidad INTEGER NOT NULL,
