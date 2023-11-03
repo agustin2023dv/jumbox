@@ -20,6 +20,9 @@
             <input type="number" class="form-control" id="precio" name="precio" value="{{ producto.precio }}" required>
         </div>
 
+        <!-- Agrega un campo oculto para enviar el ID del producto -->
+        <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
 </main>

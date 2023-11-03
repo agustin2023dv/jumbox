@@ -17,7 +17,7 @@ def admin_dashboard():
     cursor = conn.cursor()
 
     # Ejecuta una consulta para obtener los productos desde la base de datos
-    cursor.execute("SELECT nombre, precio, descripcion FROM producto")
+    cursor.execute("SELECT nombre, precio, descripcion, id_producto FROM producto")
     productos = cursor.fetchall()
 
     # Cierra la conexión a la base de datos
