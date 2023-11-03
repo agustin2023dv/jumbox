@@ -128,6 +128,14 @@ CREATE TABLE IF NOT EXISTS empleado_sucursal (
 );
 """)
 
+# Crear la tabla 'sexo'
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS sexo (
+    id_sexo INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL
+);
+""")
+
 # Crear la tabla 'cliente' con relación a 'sexo', 'domicilio' y 'sucursal'
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS cliente (
@@ -191,6 +199,21 @@ CREATE TABLE IF NOT EXISTS detalle_venta (
     FOREIGN KEY (producto_id) REFERENCES producto (id_producto)
 );
 """
+
+try:
+    cursor.execute(create_venta_table)
+    conn.commit()
+    print("Tabla 'venta' creada exitosamente.")
+except sqlite3.Error as e:
+    print("Error al crear la tabla 'venta': ", e)
+
+try:
+    cursor.execute(create_detalle_venta_table)
+    conn.commit()
+    print("Tabla 'detalle_venta' creada exitosamente.")
+except sqlite3.Error as e:
+    print("Error al crear la tabla 'detalle_venta': ", e)
+
 # Guardar los cambios y cerrar la conexión a la base de datos
 conn.commit()
 conn.close()

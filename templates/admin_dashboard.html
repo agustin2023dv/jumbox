@@ -3,10 +3,10 @@
 {% block body %}
 <h1 class="bg-primary">Bienvenido {{nombre}}</h1>
 
-<main class="container">
+<main class="container contenedor">
     <h2>Gestionar productos</h2>
     
-    <div class="card">
+    <div class="card contenedor">
         <div class="card-header">
             <h4>Detalles del Producto</h4>
         </div>
@@ -25,6 +25,16 @@
                             <td>{{ producto[0] }}</td>  {# Usar índice 0 para el nombre del producto #}
                             <td>{{ producto[1] }}</td>  {# Usar índice 1 para el precio del producto #}
                             <td>{{ producto[2] }}</td>  {# Usar índice 2 para la descripción del producto #}
+                            
+
+                            <td>
+                                <button class="btn btn-primary editar" data-id="{{ producto[0] }}">Editar</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger eliminar" data-id="{{ producto[0] }}">Eliminar</button>
+                            </td>
+
+
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -33,4 +43,40 @@
     </div>
 </main>
 
+
+
+<!-- Área para mensajes emergentes -->
+<div class="alert alert-success" role="alert" style="display: none;">
+    Producto eliminado exitosamente.
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const editarButtons = document.querySelectorAll(".editar");
+        const eliminarButtons = document.querySelectorAll(".eliminar");
+        const alertMessage = document.querySelector(".alert");
+
+        // Agrega un manejador de clic para los botones "Editar"
+        editarButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                const productId = this.getAttribute("data-id");
+                // Aquí puedes implementar la lógica para habilitar la edición del producto
+                // Puede ser mediante un modal o una interfaz de edición en línea.
+            });
+        });
+
+        // Agrega un manejador de clic para los botones "Eliminar"
+        eliminarButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                const productId = this.getAttribute("data-id");
+                // Aquí puedes implementar la lógica para eliminar el producto,
+                // luego mostrar el mensaje emergente y recargar la página.
+                alertMessage.style.display = "block";
+                setTimeout(function () {
+                    alertMessage.style.display = "none";
+                }, 3000); // Ocultar el mensaje después de 3 segundos
+            });
+        });
+    });
+</script>
 {% endblock %}

@@ -1,222 +1,239 @@
 import sqlite3
 
 # Conectar a la base de datos (asegúrate de que el archivo "jumbox.db" exista)
-conn = sqlite3.connect("jumbox.db")
+
+# Conectar a la base de datos
+conn = sqlite3.connect("C:/Users/agust/OneDrive/Escritorio/JUMBOX/jumbox.db")
+
 
 # Crear un cursor para ejecutar comandos SQL
 cursor = conn.cursor()
 
-# Ejecutar las inserciones para la tabla unidad_medida
-unidad_medida_data = [
-    ('Kilogramo', 'Unidad de peso en kilogramos'),
-    ('Litro', 'Unidad de volumen en litros'),
-    ('Metro', 'Unidad de longitud en metros'),
-    ('Unidad', 'Unidad individual'),
-    ('Docena', 'Paquete de 12 unidades')
-]
-
-for unidad in unidad_medida_data:
-    cursor.execute("INSERT INTO unidad_medida (nombre, descripcion) VALUES (?, ?)", unidad)
-
-# Ejecutar las inserciones para la tabla categoria_producto
-categoria_producto_data = [
-    ('Frutas', 'Productos frescos y naturales'),
-    ('Verduras', 'Vegetales y hortalizas'),
-    ('Carnes', 'Cortes de carne de res, cerdo y pollo'),
-    ('Lácteos', 'Productos lácteos como leche y queso'),
-    ('Panadería', 'Productos de panadería como pan y pasteles'),
-    ('Bebidas', 'Bebidas como refrescos y jugos'),
-    ('Cereales', 'Cereales y productos de desayuno'),
-    ('Higiene', 'Productos de higiene personal'),
-    ('Limpieza', 'Productos de limpieza del hogar'),
-    ('Electrónicos', 'Electrónicos y dispositivos'),
-    ('Ropa', 'Ropa y accesorios'),
-    ('Hogar', 'Artículos para el hogar'),
-    ('Juguetes', 'Juguetes y juegos'),
-    ('Automotriz', 'Productos para automóviles'),
-    ('Mascotas', 'Alimentos y productos para mascotas')
-]
-
-for categoria in categoria_producto_data:
-    cursor.execute("INSERT INTO categoria_producto (nombre, descripcion) VALUES (?, ?)", categoria)
-
-# Inserts para la tabla producto
-producto_data = [
-    ('Manzanas', 'Manzanas frescas', 2.5, 1),  # Producto 1, perteneciente a la categoría 1
-    ('Peras', 'Peras jugosas', 2.0, 1),  # Producto 2, perteneciente a la categoría 1
-    ('Bananas', 'Bananas maduras', 1.8, 1),  # Producto 3, perteneciente a la categoría 1
-    ('Zanahorias', 'Zanahorias frescas', 1.2, 2),  # Producto 4, perteneciente a la categoría 2
-    ('Tomates', 'Tomates orgánicos', 2.0, 2),  # Producto 5, perteneciente a la categoría 2
-    ('Filete de Res', 'Filete de res de alta calidad', 10.5, 3),  # Producto 6, perteneciente a la categoría 3
-    ('Pechuga de Pollo', 'Pechuga de pollo sin hueso', 8.0, 3),  # Producto 7, perteneciente a la categoría 3
-    ('Leche', 'Leche entera', 1.5, 4),  # Producto 8, perteneciente a la categoría 4
-    ('Queso Cheddar', 'Queso Cheddar en bloque', 3.0, 4),  # Producto 9, perteneciente a la categoría 4
-    ('Pan Blanco', 'Pan blanco recién horneado', 2.0, 5)  # Producto 10, perteneciente a la categoría 5
-]
-
-for producto in producto_data:
-    cursor.execute("INSERT INTO producto (nombre, descripcion, precio, categoria_id) VALUES (?, ?, ?, ?)", producto)
-
-
-# Ejecutar las inserciones para la tabla sexo
+# Inserts adicionales para la tabla sexo
 sexo_data = [
-    ('Masculino'),
-    ('Femenino')
+    ('Otro'), # Sexo no especificado
+    ('Prefiero no decirlo') # Opción para no revelar el sexo
 ]
 
 for sexo in sexo_data:
     cursor.execute("INSERT INTO sexo (nombre) VALUES (?)", (sexo,))
 
-# Ejecutar las inserciones para la tabla provincia
+# Inserts adicionales para la tabla provincia
 provincia_data = [
-    ('Buenos Aires'),
-    ('Córdoba'),
-    ('Santa Fe'),
-    ('Mendoza'),
-    ('Tucumán'),
-    ('Entre Ríos'),
-    ('Salta'),
-    ('Chaco'),
-    ('Corrientes'),
-    ('Misiones'),
+    ('La Pampa'),
+    ('San Luis'),
+    ('Catamarca'),
+    ('La Rioja'),
+    ('Tierra del Fuego'),
+    ('Santa Cruz'),
+    ('Santiago del Estero'),
+    ('Chubut'),
     ('San Juan'),
-    ('Jujuy'),
-    ('Río Negro'),
-    ('Neuquén'),
-    ('Formosa')
+    ('Misiones'),
 ]
 
 for provincia in provincia_data:
     cursor.execute("INSERT INTO provincia (nombre) VALUES (?)", (provincia,))
 
-# Ejecutar las inserciones para la tabla ciudad
+# Inserts adicionales para la tabla ciudad
 ciudad_data = [
-    ('Buenos Aires', 1),  # La provincia de Buenos Aires tiene el id 1 (debes ajustarlo según tu base de datos)
-    ('Córdoba', 2),       # La provincia de Córdoba tiene el id 2
-    ('Rosario', 3),       # La provincia de Santa Fe tiene el id 3
-    ('Mendoza', 4),       # La provincia de Mendoza tiene el id 4
-    ('San Miguel de Tucumán', 5),
-    ('Paraná', 6),
-    ('Salta', 7),
-    ('Resistencia', 8),
-    ('Corrientes', 9),
-    ('Posadas', 10),
-    ('San Juan', 11),
-    ('San Salvador de Jujuy', 12),
-    ('Viedma', 13),
-    ('Neuquén', 14),
-    ('Formosa', 15),
-    ('La Plata', 1),  # Ejemplo de ciudad en la provincia de Buenos Aires
-    ('Mar del Plata', 1),  # Ejemplo de ciudad en la provincia de Buenos Aires
+    ('Santa Rosa', 1), # La provincia de La Pampa tiene el id 16
+    ('Villa Mercedes', 2), # La provincia de San Luis tiene el id 17
+    ('San Fernando del Valle de Catamarca', 3),
+    ('La Rioja', 4),
+    ('Ushuaia', 5), # La provincia de Tierra del Fuego tiene el id 18
+    ('Río Gallegos', 6), # La provincia de Santa Cruz tiene el id 19
+    ('Santiago del Estero', 7),
+    ('Comodoro Rivadavia', 8), # La provincia de Chubut tiene el id 20
+    ('San Juan', 9),
+    ('Posadas', 10), # La provincia de Misiones tiene el id 21
 ]
 
 for ciudad in ciudad_data:
     cursor.execute("INSERT INTO ciudad (nombre, provincia_id) VALUES (?, ?)", ciudad)
 
-# Ejecutar las inserciones para la tabla domicilio
+# Inserts adicionales para la tabla domicilio
 domicilio_data = [
-    ('Calle 123, Ciudad 1', 1),  # Ciudad 1 tiene el id 1 (debes ajustarlo según tu base de datos)
-    ('Avenida Principal 456, Ciudad 2', 2),  # Ciudad 2 tiene el id 2
-    ('Calle Central 789, Ciudad 3', 3),  # Ciudad 3 tiene el id 3
-    ('Calle Norte 101, Ciudad 4', 4),  # Ciudad 4 tiene el id 4
-    ('Calle Sur 222, Ciudad 5', 5),
-    ('Avenida Este 333, Ciudad 6', 6),
-    ('Calle Oeste 444, Ciudad 7', 7),
-    ('Avenida Libertad 555, Ciudad 8', 8),
-    ('Calle Independencia 666, Ciudad 9', 9),
-    ('Avenida 25 de Mayo 777, Ciudad 10', 10),
-    ('Calle San Martín 888, Ciudad 11', 11),
-    ('Avenida Belgrano 999, Ciudad 12', 12),
-    ('Calle Rivadavia 1010, Ciudad 13', 13),
-    ('Avenida Sarmiento 1111, Ciudad 14', 14),
-    ('Calle Alberdi 1212, Ciudad 15', 15),
-    ('Avenida Juan XXIII 1313, Ciudad 16', 16),
-    ('Calle San Lorenzo 1414, Ciudad 17', 17),
-    ('Avenida 9 de Julio 1515, Ciudad 18', 18),
-    ('Calle Paseo Colón 1616, Ciudad 19', 19),
-    ('Avenida Corrientes 1717, Ciudad 20', 20),
+    ('Calle 456, Ciudad 16', 16),  # Ciudad 16 tiene el id 16 (debes ajustarlo según tu base de datos)
+    ('Avenida Central 789, Ciudad 17', 17),  # Ciudad 17 tiene el id 17
+    ('Calle del Valle 101, Ciudad 18', 18),  # Ciudad 18 tiene el id 18
+    ('Calle 123, Ciudad 19', 19),  # Ciudad 19 tiene el id 19
+    ('Avenida Principal 456, Ciudad 20', 20),  # Ciudad 20 tiene el id 20
 ]
 
 for domicilio in domicilio_data:
     cursor.execute("INSERT INTO domicilio (direccion, ciudad_id) VALUES (?, ?)", domicilio)
 
-# Ejecutar las inserciones para la tabla sucursal con FK en domicilio
-sucursal_data = [
-    ('jumbox1@jumbox.com', '+1234567890', 1),
-    ('jumbox2@jumbox.com', '+9876543210', 2),
-    ('jumbox3@jumbox.com', '+1112223333', 3),
-    ('jumbox4@jumbox.com', '+4445556666', 4),
-    ('jumbox5@jumbox.com', '+7778889999', 5),
-    ('jumbox6@jumbox.com', '+2223334444', 6),
-    ('jumbox7@jumbox.com', '+5556667777', 7),
-    ('jumbox8@jumbox.com', '+9990001111', 8),
+# Inserts adicionales para la tabla categoria_producto
+categoria_producto_data = [
+    ('Pescados', 'Productos del mar'),
+    ('Electrodomésticos', 'Electrodomésticos para el hogar'),
+    ('Jardinería', 'Productos para jardín'),
+    ('Farmacia', 'Productos farmacéuticos'),
+    ('Ropa Deportiva', 'Ropa y accesorios deportivos'),
+    ('Librería', 'Productos de papelería y libros'),
+    ('Muebles', 'Muebles para el hogar'),
+    ('Tecnología', 'Productos electrónicos y tecnológicos'),
+    ('Instrumentos Musicales', 'Instrumentos musicales y accesorios'),
+    ('Decoración', 'Productos de decoración'),
 ]
 
-for sucursal in sucursal_data:
-    cursor.execute("INSERT INTO sucursal (email, telefono, domicilio_id) VALUES (?, ?, ?)", sucursal)
+for categoria in categoria_producto_data:
+    cursor.execute("INSERT INTO categoria_producto (nombre, descripcion) VALUES (?, ?)", categoria)
 
-# Ejemplo de inserciones para la tabla empleado_sucursal con sucursal_id y domicilio_id únicos
+# Inserts adicionales para la tabla unidad_medida
+unidad_medida_data = [
+    ('Botella', 'Unidad de medida en botellas'),
+    ('Paquete', 'Unidad de medida en paquetes'),
+    ('Metro Cuadrado', 'Unidad de medida en metros cuadrados'),
+    ('Lata', 'Unidad de medida en latas'),
+    ('Pieza', 'Unidad de medida en piezas'),
+    ('Bolsa', 'Unidad de medida en bolsas'),
+    ('Kilómetro', 'Unidad de medida en kilómetros'),
+    ('Metros Cúbicos', 'Unidad de medida en metros cúbicos'),
+    ('Centímetros', 'Unidad de medida en centímetros'),
+    ('Mililitros', 'Unidad de medida en mililitros'),
+]
+
+for unidad in unidad_medida_data:
+    cursor.execute("INSERT INTO unidad_medida (nombre, descripcion) VALUES (?, ?)", unidad)
+
+# Inserciones adicionales para la tabla producto
+producto_data = [
+    ('Salmón Fresco', 'Salmón fresco de alta calidad', 12.99, 1),  # Categoría: Pescados
+    ('Lavadora de Carga Frontal', 'Lavadora de última generación', 599.99, 2),  # Categoría: Electrodomésticos
+    ('Podadora de Césped', 'Podadora para mantener tu césped en perfecto estado', 149.99, 3),  # Categoría: Jardinería
+    ('Aspirina', 'Tabletas de aspirina para el alivio del dolor', 5.99, 4),  # Categoría: Farmacia
+    ('Zapatillas de Running', 'Zapatillas deportivas para correr', 89.99, 5),  # Categoría: Ropa Deportiva
+    ('Libro "1984" de George Orwell', 'Clásico de la literatura distópica', 14.99, 6),  # Categoría: Librería
+    ('Sofá de Cuero', 'Sofá de cuero genuino para la sala de estar', 699.99, 7),  # Categoría: Muebles
+    ('Smartphone Samsung Galaxy S22', 'Teléfono inteligente de última generación', 999.99, 8),  # Categoría: Tecnología
+    ('Guitarra Acústica', 'Guitarra acústica de concierto', 299.99, 9),  # Categoría: Instrumentos Musicales
+    ('Cuadro de Arte Abstracto', 'Cuadro decorativo para tu hogar', 49.99, 10),  # Categoría: Decoración
+    ('Camiseta de Fútbol', 'Camiseta oficial de tu equipo favorito', 29.99, 5),  # Categoría: Ropa Deportiva
+    ('Calculadora Científica', 'Calculadora científica para estudiantes', 19.99, 6),  # Categoría: Librería
+    ('Mesa de Comedor', 'Mesa de comedor de madera maciza', 349.99, 7),  # Categoría: Muebles
+    ('Tablet iPad Pro', 'Tablet de alta gama con pantalla retina', 799.99, 8),  # Categoría: Tecnología
+    ('Teclado Eléctrico', 'Teclado musical electrónico', 199.99, 9),  # Categoría: Instrumentos Musicales
+    ('Lámpara de Pie', 'Lámpara de pie con diseño moderno', 69.99, 10),  # Categoría: Decoración
+    ('Cámara Réflex Nikon D850', 'Cámara réflex digital de alta resolución', 1499.99, 13),  # Categoría: Fotografía
+    ('Maleta de Viaje', 'Maleta resistente para tus aventuras', 79.99, 14),  # Categoría: Viajes
+    ('Sartén Antiadherente', 'Sartén antiadherente de calidad premium', 39.99, 15),  # Categoría: Instrumentos Culinarios
+    ('Traje de Negocios', 'Traje elegante para hombres', 199.99, 19),  # Categoría: Ropa de Oficina
+]
+
+
+for producto in producto_data:
+    cursor.execute("INSERT INTO producto (nombre, descripcion, precio, categoria_id) VALUES (?, ?, ?, ?)", producto)
+
+# Inserts adicionales para la tabla empleado_sucursal
 empleado_sucursal_data = [
-    ('Juan', 'González', 1, '1985-03-15', '2023-01-10', 1, 1),
-    ('María', 'Martínez', 2, '1987-05-20', '2023-01-15', 2, 2),
-    ('Carlos', 'López', 1, '1984-07-25', '2023-01-20', 3, 3),
-    ('Ana', 'Fernández', 2, '1989-09-30', '2023-01-25', 4, 4),
-    ('Diego', 'Rodríguez', 1, '1983-11-05', '2023-01-30', 5, 5),
-    ('Laura', 'Gómez', 2, '1986-01-10', '2023-02-05', 6, 6),
-    ('Pablo', 'Díaz', 1, '1982-03-15', '2023-02-10', 7, 7),
-    ('Silvia', 'Pérez', 2, '1988-05-20', '2023-02-15', 8, 8),
-    ('Jorge', 'Fernández', 1, '1981-07-25', '2023-02-20', 9, 9),
-    ('Cecilia', 'Martínez', 2, '1990-09-30', '2023-02-25', 10, 10),
-    ('Luis', 'González', 1, '1980-11-05', '2023-03-01', 11, 11),
-    ('Valeria', 'López', 2, '1991-01-10', '2023-03-05', 12, 12),
-    ('Martín', 'Sánchez', 1, '1979-03-15', '2023-03-10', 13, 13),
-    ('Natalia', 'García', 2, '1992-05-20', '2023-03-15', 14, 14),
-    ('Gustavo', 'Fernández', 1, '1978-07-25', '2023-03-20', 15, 15),
-    ('Rosa', 'Díaz', 2, '1993-09-30', '2023-03-25', 16, 16),
+    ('Elena', 'Sánchez', 2, '1987-02-20', '2023-03-01', 20, 20),
+    ('Andrés', 'Pérez', 1, '1985-04-15', '2023-03-05', 21, 21),
+    ('Sofía', 'Torres', 2, '1988-06-25', '2023-03-10', 22, 22),
+    ('Ricardo', 'Gómez', 1, '1986-08-30', '2023-03-15', 23, 23),
+    ('Carmen', 'López', 2, '1984-10-05', '2023-03-20', 24, 24),
+    ('Javier', 'Martínez', 1, '1989-12-10', '2023-03-25', 25, 25),
+    ('Isabella', 'Rodríguez', 2, '1983-02-15', '2023-04-01', 26, 26),
+    ('Emilio', 'Fernández', 1, '1990-04-20', '2023-04-05', 27, 27),
+    ('Lucía', 'García', 2, '1982-06-25', '2023-04-10', 28, 28),
+    ('Adrián', 'Díaz', 1, '1981-08-30', '2023-04-15', 29, 29),
 ]
 
 for empleado in empleado_sucursal_data:
     cursor.execute("INSERT INTO empleado_sucursal (nombre, apellido, sexo_id, fecha_nac, fecha_incorporacion, domicilio_id, sucursal_id) VALUES (?, ?, ?, ?, ?, ?, ?)", empleado)
 
-# Inserts para la tabla stock_producto con producto_id (donde aplicable)
-stock_producto_data = [
-    (80, 8, 4, 1),    # Producto 1 en unidad de medida 4
-    (120, 12, 5, 2),  # Producto 2 en unidad de medida 5
-    (70, 7, 1, 3),    # Producto 3 en unidad de medida 1
-    (90, 9, 2, 6),    # Producto 4 en unidad de medida 2
-    (60, 6, 3, 4),    # Producto 5 en unidad de medida 3
-    (150, 15, 4, 7),  # Producto 6 en unidad de medida 4
-    (110, 11, 5, 8),  # Producto 7 en unidad de medida 5
-    (100, 10, 1, 9),  # Producto 8 en unidad de medida 1
-    (130, 13, 2, 10), # Producto 9 en unidad de medida 2
-    (85, 8, 3, 11),   # Producto 10 en unidad de medida 3
-    (95, 9, 4, 12),   # Producto 11 en unidad de medida 4
-    (75, 7, 5, 13),   # Producto 12 en unidad de medida 5
+# Inserts adicionales para la tabla cliente
+cliente_data = [
+    ('Pedro', 'Ramírez', 1, '1986-03-10', '+1122334455', 'pedro@email.com', 30),
+    ('Marcela', 'González', 2, '1989-05-15', '+5566778899', 'marcela@email.com', 31),
+    ('Alejandro', 'Silva', 1, '1984-07-20', '+9900112233', 'alejandro@email.com', 32),
+    ('Florencia', 'Hernández', 2, '1987-09-25', '+3322114455', 'florencia@email.com', 33),
+    ('Gustavo', 'Torres', 1, '1983-11-30', '+7755332211', 'gustavo@email.com', 34),
+    ('Laura', 'Ríos', 2, '1990-02-05', '+1122334466', 'laura@email.com', 35),
+    ('Miguel', 'Ortega', 1, '1982-04-10', '+5566778900', 'miguel@email.com', 36),
+    ('Valentina', 'Mendoza', 2, '1991-06-15', '+9900112234', 'valentina@email.com', 37),
+    ('Roberto', 'Romero', 1, '1981-08-20', '+3322114456', 'roberto@email.com', 38),
+    ('Luciana', 'Pérez', 2, '1992-10-25', '+7755332212', 'luciana@email.com', 39),
 ]
 
-for stock in stock_producto_data:
-    cursor.execute("INSERT INTO stock_producto (stock, stock_minimo, unidad_medida_id, producto_id) VALUES (?, ?, ?, ?)", stock)
+for cliente in cliente_data:
+    cursor.execute("INSERT INTO cliente (nombre, apellido, sexo_id, fecha_nac, telefono, email, domicilio_id) VALUES (?, ?, ?, ?, ?, ?, ?)", cliente)
 
-
-# Inserts adicionales para la tabla sucursal_stock
-sucursal_stock_data = [
-    (1, 6),   # Sucursal 1 con stock_producto 6
-    (1, 7),   # Sucursal 1 con stock_producto 7
-    (1, 8),   # Sucursal 1 con stock_producto 8
-    (2, 9),   # Sucursal 2 con stock_producto 9
-    (2, 10),  # Sucursal 2 con stock_producto 10
-    (2, 11),  # Sucursal 2 con stock_producto 11
-    (3, 12),  # Sucursal 3 con stock_producto 12
-    (3, 13),  # Sucursal 3 con stock_producto 13
-    (3, 14),  # Sucursal 3 con stock_producto 14
-    (4, 15),  # Sucursal 4 con stock_producto 15
+# Inserts adicionales para la tabla factura
+factura_data = [
+    ('2023-03-01', 30),
+    ('2023-03-02', 31),
+    ('2023-03-03', 32),
+    ('2023-03-04', 33),
+    ('2023-03-05', 34),
+    ('2023-03-06', 35),
+    ('2023-03-07', 36),
+    ('2023-03-08', 37),
+    ('2023-03-09', 38),
+    ('2023-03-10', 39),
 ]
 
-for sucursal_stock in sucursal_stock_data:
-    cursor.execute("INSERT INTO sucursal_stock (sucursal_id, stock_id) VALUES (?, ?)", sucursal_stock)
+for factura in factura_data:
+    cursor.execute("INSERT INTO factura (fecha, cliente_id) VALUES (?, ?)", factura)
+
+
+# Inserts adicionales para la tabla detalle_factura
+detalle_factura_data = [
+    (1, 5, 3, 2.5),
+    (2, 3, 4, 2.0),
+    (3, 2, 2, 1.8),
+    (4, 6, 1, 10.5),
+    (5, 7, 2, 8.0),
+    (6, 8, 5, 1.5),
+    (7, 9, 3, 3.0),
+    (8, 4, 2, 2.0),
+    (9, 1, 4, 1.2),
+    (10, 10, 2, 2.0),
+]
+
+
+for detalle in detalle_factura_data:
+    cursor.execute("INSERT INTO detalle_factura (factura_id, producto_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)", detalle)
+
+# Inserts adicionales para la tabla venta
+venta_data = [
+    ('2023-02-01', 1, 1),
+    ('2023-02-02', 2, 2),
+    ('2023-02-03', 3, 3),
+    ('2023-02-04', 4, 4),
+    ('2023-02-05', 5, 5),
+    ('2023-02-06', 6, 6),
+    ('2023-02-07', 7, 7),
+    ('2023-02-08', 8, 8),
+    ('2023-02-09', 9, 9),
+    ('2023-02-10', 10, 10),
+]
+
+for venta in venta_data:
+    cursor.execute("INSERT INTO venta (fecha, empleado_id, sucursal_id) VALUES (?, ?, ?)", venta)
+
+
+detalle_venta_data = [
+    (1, 5, 3, 2.5),  # Eliminamos el valor 11
+    (2, 3, 4, 2.0),
+    (3, 2, 2, 1.8),
+    (4, 6, 1, 10.5),
+    (5, 7, 2, 8.0),
+    (6, 8, 5, 1.5),
+    (7, 9, 3, 3.0),
+    (8, 4, 2, 2.0),
+    (9, 1, 4, 1.2),
+    (10, 10, 2, 2.0),
+]
+
+for detalle in detalle_venta_data:
+    cursor.execute("INSERT INTO detalle_venta (venta_id, producto_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)", detalle)
+
+
 
 # Guardar los cambios y cerrar la conexión a la base de datos
 conn.commit()
 conn.close()
 
-print("Inserciones realizadas con éxito.")
+print("Inserciones adicionales realizadas con éxito.")
