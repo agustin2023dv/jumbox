@@ -1,5 +1,5 @@
 from . import CategoriaProducto
-
+import sqlite3
 class Producto:
     """
     Clase que representa un producto en una base de datos.
@@ -32,17 +32,33 @@ class Producto:
         self.descripcion = descripcion
         self.precio = precio
         self.categoria = categoria
+    
+    def __init__(self):
+        """
+        Inicializa un objeto Producto con los atributos proporcionados.
+        """
+        
+        self.nombre = ""
+        self.descripcion = ""
+        self.precio = 1
+    
+    def __init__(self, id_producto, nombre, descripcion, precio):
+        self.id_producto = id_producto
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.precio = precio
+
 
     def __str__(self):
         """
         Devuelve una representación en cadena del producto.
         """
-        categoria_nombre = self.categoria.get_nombre()
+     
         return f"ID Producto: {self.id_producto}\n" \
                f"Nombre: {self.nombre}\n" \
                f"Descripción: {self.descripcion}\n" \
                f"Precio: {self.precio}\n" \
-               f"Categoría: {categoria_nombre}"
+             
 
     def guardar(self, db):
         """
@@ -50,21 +66,27 @@ class Producto:
         """
         try:
             consulta = "INSERT INTO producto (nombre, descripcion, precio, categoria_id) VALUES (?, ?, ?, ?)"
-            parametros = (self.nombre, self.descripcion, self.precio, self.categoria.get_id_categoria())
+            parametros = (self.nombre, self.descripcion, self.precio, self.categoria)
             db.ejecutar_consulta(consulta, parametros)
             db.conexion.commit()
         except Exception as e:
             print(f"Error al guardar el producto: {str(e)}")
 
-    def actualizar(self, db):
+    def actualizar(self, nombre,descripcion,precio,categoria,id_producto):
         """
         Actualiza el producto en la base de datos.
         """
+        
         try:
-            consulta = "UPDATE producto SET nombre=?, descripcion=?, precio=?, categoria_id=? WHERE id_producto=?"
-            parametros = (self.nombre, self.descripcion, self.precio, self.categoria.get_id_categoria(), self.id_producto)
-            db.ejecutar_consulta(consulta, parametros)
-            db.conexion.commit()
+            conexion=sqlite3.connect('jumbox.db')
+            cursor = conexion.cursor()
+
+
+            cursor.execute("UPDATE producto SET nombre=?, descripcion=?, precio=?, categoria_id=? WHERE id_producto=?",
+                           (nombre, descripcion,precio, categoria, id_producto))
+            conexion.commit()
+            conexion.close()
+            
         except Exception as e:
             print(f"Error al actualizar el producto: {str(e)}")
 

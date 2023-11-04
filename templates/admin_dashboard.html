@@ -4,7 +4,7 @@
 
 <div class="sidebar">
     
-    <div class="p-4">
+    <div class="p-4 text-center">
         <img src="/static/img/logo_transparent.png" alt="Logo de JUMBOX">
         <h2>Hola</h2>
     </div>
@@ -15,53 +15,63 @@
         <li><a href="#">Ver metricas</a></li>
         <li><a href="#">Agregar producto</a></li>
         <li><a href="#">Enviar mensaje</a></li>
-        <hr class="linea-divisora pb-5">
-        <li><a href="#">Cerrar sesión</a></li>
+        <hr class="linea-divisora pt-5 pb-5">
+        <li class="text-center"><a href="#">Cerrar sesión</a></li>
         <!-- Agrega más opciones de menú según sea necesario -->
     </ul>
 </div>
 
     <div class="content">
         
-        <div class="container p-2 bg-primary cartel-bienvenido">
+        <div class="m-3 cartel-bienvenido">
             <h1>Hola {{nombre}}!</h1>
             <p>Bienvenido a Jumbox Dashboard.</p>
         </div>
+  
         <main class="container">
             <div class="card p-3">
                 <div class="card-header">
                     <h2>Gestionar productos</h2>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Descripción</th>
+                                <th>Id producto</th>
+                                <th>Categoria id</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                            <tbody>
                             {% for producto in productos %}
                                 <tr>
-                                    <td>{{ producto[0] }}</td>  {# Usar índice 0 para el nombre del producto #}
-                                    <td>${{ producto[1] }}</td>  {# Usar índice 1 para el precio del producto #}
-                                    <td>{{ producto[2] }}</td>  {# Usar índice 2 para la descripción del producto #}
-                                    
+                                    <td>{{ producto[0] }}</td>  
+                                    <td>${{ producto[1] }}</td>  
+                                    <td>{{ producto[2] }}</td>
+                                    <td>{{ producto[3] }}</td>
+                                    <td>{{ producto[4] }}</td>
 
                                     <td>
+                                        
                                         <a href="/editar_producto/{{ producto[3] }}" class="btn btn-primary editar" data-id="{{ producto[3] }}">Editar</a>
-                                    </td>
-                                    
-                                    <td>
+                                        
+                                        
+                                        
                                         <a href="/eliminar_producto/{{ producto[3] }}" class="btn btn-danger eliminar" data-id="{{ producto[3] }}">Eliminar</a>
+                                        
                                     </td>
                                     
+                                   
 
 
                                 </tr>
                             {% endfor %}
-                        </tbody>
+                            </tbody>
+         
                     </table>
                 </div>
             </div>

@@ -1,21 +1,27 @@
 *{
-    text-align: center;
+
+    font-family: 'Nunito', sans-serif;
+}
+
+header, footer{
+    background-color: #fdfac7;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-bottom: 40px;
+    margin-left: 250px;
+    font-size: 15px;
+    height: 90px;
+    color: #000;
 }
 
 
-.header{
-    background-color: #f5ef3b;
-    color: red;
-    height: 80px;
-    font-size: 100px;
-}
 
 
 /* Estilos del sidebar */
 .sidebar {
     width: 250px; /* Ancho del sidebar */
     height: 100%; /* Altura completa del viewport */
-    background-color: red; /* Color de fondo del sidebar */
+    background-color: #204b5e; /* Color de fondo del sidebar */
     color: #fff; /* Color del texto del sidebar */
     position: fixed; /* Fija el sidebar en la página */
     top: 0; /* Alinea el sidebar en la parte superior */
@@ -35,30 +41,47 @@
 
 /* Estilos del contenido principal */
 .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
     margin-left: 250px; /* Margen a la izquierda para acomodar el sidebar */
     padding: 20px;
 }
 
 
 .cartel-bienvenido{
-    border-radius: 4px;
+    border-radius: 5px;
+    width: 60%;
+    padding-top: 15px;
+    padding-bottom: 15;
+    padding-left: 25px;
+    
+    background-color: #fbea80;
 }
+
 
 
 .opciones-sidebar li a{
     font-size: 20px;
-    color: #000;
+    color: whitesmoke;
     text-align: start;
     text-decoration: none; /* Elimina el subrayado predeterminado */
 }
 
 .opciones-sidebar li:hover {
-    background-color: #f5ef3b;
+    background-color: #fbea80;
+    transition: 0.75s;
+    color: #204b5e;
     text-decoration: none; /* Elimina el subrayado en estado de hover */
 }
 
+.opciones-sidebar li a:hover {
+    color: #204b5e; 
+    
+}
+
 .linea-divisora{
-    color: black;
-    border-top: 3px solid #000;
+
+    border-top: 3px solid #fbea80;
     width: 70%;
 }
