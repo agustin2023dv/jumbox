@@ -1,0 +1,64 @@
+*{
+    text-align: center;
+}
+
+
+.header{
+    background-color: #f5ef3b;
+    color: red;
+    height: 80px;
+    font-size: 100px;
+}
+
+
+/* Estilos del sidebar */
+.sidebar {
+    width: 250px; /* Ancho del sidebar */
+    height: 100%; /* Altura completa del viewport */
+    background-color: red; /* Color de fondo del sidebar */
+    color: #fff; /* Color del texto del sidebar */
+    position: fixed; /* Fija el sidebar en la página */
+    top: 0; /* Alinea el sidebar en la parte superior */
+    left: 0; /* Alinea el sidebar a la izquierda */
+    overflow-y: auto; /* Añade desplazamiento vertical si el contenido es demasiado largo */
+     /* Ajusta el valor de z-index para asegurarte de que el sidebar esté por debajo del contenido principal */
+}
+
+.sidebar ul {
+    list-style-type: none; /* Quita los puntos de lista */
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 10px;
+}
+
+/* Estilos del contenido principal */
+.content {
+    margin-left: 250px; /* Margen a la izquierda para acomodar el sidebar */
+    padding: 20px;
+}
+
+
+.cartel-bienvenido{
+    border-radius: 4px;
+}
+
+
+.opciones-sidebar li a{
+    font-size: 20px;
+    color: #000;
+    text-align: start;
+    text-decoration: none; /* Elimina el subrayado predeterminado */
+}
+
+.opciones-sidebar li:hover {
+    background-color: #f5ef3b;
+    text-decoration: none; /* Elimina el subrayado en estado de hover */
+}
+
+.linea-divisora{
+    color: black;
+    border-top: 3px solid #000;
+    width: 70%;
+}
