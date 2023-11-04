@@ -20,14 +20,14 @@ def admin_dashboard():
     cursor.execute("SELECT nombre, precio, descripcion, id_producto FROM producto")
     productos = cursor.fetchall()
 
-    # Cierra la conexión a la base de datos
+    # Se cierra la conexión a la base de datos
     conn.close()
 
     return render_template('admin_dashboard.html', productos=productos)
 
 @app.route('/editar_producto/<int:id_producto>', methods=['GET', 'POST'])
 def editar_producto(id_producto):
-    # Obtén el producto por su ID desde la base de datos
+    # Obtener el producto por su ID desde la base de datos
     conn = sqlite3.connect('jumbox.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM producto WHERE id_producto = ?", (id_producto,))
@@ -48,7 +48,7 @@ def editar_producto(id_producto):
             return redirect(url_for('admin_dashboard'))
 
         return render_template('editar_producto.html', producto=producto_data)
-
+    
     return 'Producto no encontrado', 404
 
 @app.route('/eliminar_producto/<int:id_producto>')
