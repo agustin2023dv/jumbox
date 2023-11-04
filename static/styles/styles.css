@@ -1,10 +1,10 @@
 *{
-
+    
     font-family: 'Nunito', sans-serif;
 }
 
 header, footer{
-    background-color: #fdfac7;
+    background-color: #baab6a;
     padding-top: 30px;
     padding-left: 20px;
     padding-bottom: 40px;
@@ -12,10 +12,13 @@ header, footer{
     font-size: 15px;
     height: 90px;
     color: #000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 
-
+li img{
+    margin-right: 10px;
+}
 
 /* Estilos del sidebar */
 .sidebar {
@@ -27,8 +30,7 @@ header, footer{
     top: 0; /* Alinea el sidebar en la parte superior */
     left: 0; /* Alinea el sidebar a la izquierda */
     overflow-y: auto; /* Añade desplazamiento vertical si el contenido es demasiado largo */
-     /* Ajusta el valor de z-index para asegurarte de que el sidebar esté por debajo del contenido principal */
-}
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.4); }
 
 .sidebar ul {
     list-style-type: none; /* Quita los puntos de lista */
@@ -84,4 +86,25 @@ header, footer{
 
     border-top: 3px solid #fbea80;
     width: 70%;
+}
+
+.boton{
+    padding: 4px;
+    font-size: 20px;
+    color: #204b5e;
+    background-color: #FFA500;
+    border-radius: 4px;
+}
+
+.boton:hover{
+    background-color: whitesmoke;
+    color: #204b5e;
+}
+
+.editar{
+
+    font-size: 16px;
+}
+.eliminar{
+    font-size:16px;
 }

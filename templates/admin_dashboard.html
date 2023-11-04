@@ -11,13 +11,16 @@
     <hr class="linea-divisora">
     <!-- Contenido del sidebar -->
     <ul class="pt-5 opciones-sidebar">
-        <li><a href="#">Gestionar cuenta</a></li>
-        <li><a href="#">Ver metricas</a></li>
-        <li><a href="#">Agregar producto</a></li>
-        <li><a href="#">Enviar mensaje</a></li>
+        <li><a href="#"><img src="/static/img/usuario.png" alt="Imagen Gestionar Cuenta"> Mi cuenta</a></li>
+        <li><a href="#"><img src="/static/img/metricas.png" alt="Imagen Ver Metricas">Metricas</a></li>
+        <li><a href="#"><img src="/static/img/cliente.png" alt="Imagen Clientes">Clientes</a></li>
+        <li><a href="#"><img src="/static/img/productos.png" alt="Imagen Productos">Productos</a></li>
+        <li><a href="#"><img src="/static/img/productos.png" alt="Imagen Stock">Stock</a></li>
+        <li><a href="#"><img src="/static/img/mensaje.png" alt="Imagen de Enviar Mensaje">Mensajes</a></li>
         <hr class="linea-divisora pt-5 pb-5">
-        <li class="text-center"><a href="#">Cerrar sesión</a></li>
-        <!-- Agrega más opciones de menú según sea necesario -->
+        <div class="container text-center">
+            <button class="boton">Cerrar sesión</button>
+        </div>
     </ul>
 </div>
 
@@ -40,8 +43,6 @@
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Descripción</th>
-                                <th>Id producto</th>
-                                <th>Categoria id</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -52,16 +53,15 @@
                                     <td>{{ producto[0] }}</td>  
                                     <td>${{ producto[1] }}</td>  
                                     <td>{{ producto[2] }}</td>
-                                    <td>{{ producto[3] }}</td>
-                                    <td>{{ producto[4] }}</td>
+                      
 
                                     <td>
                                         
-                                        <a href="/editar_producto/{{ producto[3] }}" class="btn btn-primary editar" data-id="{{ producto[3] }}">Editar</a>
+                                        <a href="/editar_producto/{{ producto[3] }}" class="boton editar" data-id="{{ producto[3] }}">Editar</a>
                                         
                                         
                                         
-                                        <a href="/eliminar_producto/{{ producto[3] }}" class="btn btn-danger eliminar" data-id="{{ producto[3] }}">Eliminar</a>
+                                        <a href="/eliminar_producto/{{ producto[3] }}" class="boton eliminar" data-id="{{ producto[3] }}">Eliminar</a>
                                         
                                     </td>
                                     
