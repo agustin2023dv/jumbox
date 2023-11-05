@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from ClasesPOO.CategoriaProducto import CategoriaProducto
+from flask_sqlalchemy import SQLAlchemy
+from flask_paginate import Pagination, get_page_args
 from ClasesPOO.Producto import Producto
 import sqlite3
 
@@ -23,7 +24,46 @@ def admin_dashboard():
     # Se cierra la conexión a la base de datos
     conn.close()
 
-    return render_template('admin_dashboard.html', productos=productos)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = len(productos)
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+
+    # Divide la lista de productos en páginas
+    productos_paginados = productos[offset: offset + per_page]
+
+    return render_template('admin_dashboard.html', productos=productos_paginados, pagination=pagination)
+
+def obtener_todos_los_productos():
+    # Conectar a la base de datos SQLite3 
+    conn = sqlite3.connect('jumbox.db')
+    cursor = conn.cursor()
+    
+    # Ejecuta una consulta para obtener los productos desde la base de datos
+    cursor.execute("SELECT nombre, precio, descripcion, id_producto, categoria_id FROM producto")
+    productos = cursor.fetchall()
+
+    # Se cierra la conexión a la base de datos
+    conn.close()
+
+    return productos
+
+
+@app.route('/lista_productos', methods=['GET'])
+def lista_productos():
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    
+    # Obtén la lista completa de productos desde la base de datos
+    productos = obtener_todos_los_productos()
+
+    # Calcula el número total de páginas
+    total = len(productos)
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    
+    # Divide la lista de productos en páginas
+    productos_paginados = productos[offset: offset + per_page]
+
+    return render_template('lista_productos.html', productos=productos_paginados, pagination=pagination)
+
 
 @app.route('/editar_producto/<int:id_producto>', methods=['GET', 'POST'])
 def editar_producto(id_producto):

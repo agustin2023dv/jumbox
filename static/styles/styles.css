@@ -4,19 +4,24 @@
 }
 
 header, footer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     background-color: #baab6a;
     padding-top: 30px;
     padding-left: 20px;
     padding-bottom: 40px;
     margin-left: 250px;
     font-size: 15px;
-    height: 90px;
+    height: 110px;
     color: #000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 
 li img{
+    margin-left: 18px;
     margin-right: 10px;
 }
 
@@ -97,14 +102,40 @@ li img{
 }
 
 .boton:hover{
-    background-color: whitesmoke;
-    color: #204b5e;
+    text-decoration: none;
+    background-color: #baab6a;
+    color: whitesmoke;
 }
 
 .editar{
-
+    border-radius: 2px;
+    padding: 4px;
+    margin-right: 2px;
+    color: whitesmoke;
     font-size: 16px;
 }
+
+.editar:hover{
+text-decoration: none;
+color: whitesmoke;
+}
 .eliminar{
+    border-radius: 2px;
+    padding: 4px;
+    background-color: red;
+    color: whitesmoke;
     font-size:16px;
+}
+
+.eliminar:hover{
+    background-color: rgb(169, 53, 53);
+    text-decoration: none;
+    color: whitesmoke;
+
+    
+}
+
+.agregar-producto {
+
+    margin: 20px;
 }

@@ -5,7 +5,7 @@
 <div class="sidebar">
     
     <div class="p-4 text-center">
-        <img src="/static/img/logo_transparent.png" alt="Logo de JUMBOX">
+        
         <h2>Hola</h2>
     </div>
     <hr class="linea-divisora">
@@ -24,7 +24,7 @@
     </ul>
 </div>
 
-    <div class="content">
+    <div class="content ">
         
         <div class="m-3 cartel-bienvenido">
             <h1>Hola {{nombre}}!</h1>
@@ -32,7 +32,7 @@
         </div>
   
         <main class="container">
-            <div class="card p-3">
+            <div class="card p-3 gestionar-productos">
                 <div class="card-header">
                     <h2>Gestionar productos</h2>
                 </div>
@@ -57,11 +57,11 @@
 
                                     <td>
                                         
-                                        <a href="/editar_producto/{{ producto[3] }}" class="boton editar" data-id="{{ producto[3] }}">Editar</a>
+                                        <a href="/editar_producto/{{ producto[3] }}" class="bg-primary editar" data-id="{{ producto[3] }}">Editar</a>
                                         
                                         
                                         
-                                        <a href="/eliminar_producto/{{ producto[3] }}" class="boton eliminar" data-id="{{ producto[3] }}">Eliminar</a>
+                                        <a href="/eliminar_producto/{{ producto[3] }}" class="eliminar" data-id="{{ producto[3] }}">Eliminar</a>
                                         
                                     </td>
                                     
@@ -71,11 +71,15 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
-         
                     </table>
+
+                    <div class="pagination">
+                        {{ pagination.links }}
+                    </div>
                 </div>
             </div>
         </main>
     </div>
+  
 
 {% endblock %}
