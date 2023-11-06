@@ -1,8 +1,8 @@
-# Importa las bibliotecas necesarias
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_paginate import Pagination, get_page_args
-from ClasesPOO.Producto import Producto  # Importa la clase Producto desde un módulo externo
+from ClasesPOO.Producto import Producto  # Importacion la clase Producto desde un módulo externo
 import sqlite3
 
 # Crea una instancia de la aplicación Flask
