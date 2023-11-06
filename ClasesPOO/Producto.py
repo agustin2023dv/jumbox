@@ -60,35 +60,70 @@ class Producto:
                f"Precio: {self.precio}\n" \
              
 
-    def guardar(self, db):
+    def guardar(self, nombre, descripcion, precio, categoria):
         """
         Guarda el producto en la base de datos.
         """
+        # Verificar que el precio sea un número válido y mayor a 0
+        try:
+            precio = float(precio)
+            if precio <= 0:
+                return "El precio debe ser un número válido mayor que 0"
+        except ValueError:
+            return "El precio debe ser un número válido mayor que 0"
+
+        # Verificar que el nombre y la descripción no estén en blanco
+        if not nombre.strip() or not descripcion.strip():
+            return "El nombre y la descripción no pueden estar en blanco"
+
+        conn = sqlite3.connect('jumbox.db')
+        cursor = conn.cursor()
+
         try:
             consulta = "INSERT INTO producto (nombre, descripcion, precio, categoria_id) VALUES (?, ?, ?, ?)"
-            parametros = (self.nombre, self.descripcion, self.precio, self.categoria)
-            db.ejecutar_consulta(consulta, parametros)
-            db.conexion.commit()
+            parametros = (nombre, descripcion, precio, categoria)
+            cursor.execute(consulta, parametros)
+            conn.commit()
+            conn.close()
+            return 'Producto guardado exitosamente'
         except Exception as e:
             print(f"Error al guardar el producto: {str(e)}")
+            return "Error al guardar el producto en la base de datos"
 
-    def actualizar(self, nombre,descripcion,precio,categoria,id_producto):
-        """
-        Actualiza el producto en la base de datos.
-        """
-        
+
+    class Producto:
+        def __init__(self, id_producto, nombre, descripcion, precio):
+            self.id_producto = id_producto
+            self.nombre = nombre
+            self.descripcion = descripcion
+            self.precio = precio
+
+    def actualizar(self, nombre, descripcion, precio, categoria, id_producto):
+        # Intenta convertir el valor de precio a float y verifica si es válido
         try:
-            conexion=sqlite3.connect('jumbox.db')
-            cursor = conexion.cursor()
+            precio = float(precio)
+            if precio <= 0:
+                print("El precio debe ser mayor que 0")
+                return None
+            else:
+                if precio > 0:
+                    try:
+                        conexion = sqlite3.connect('jumbox.db')
+                        cursor = conexion.cursor()
 
+                        cursor.execute("UPDATE producto SET nombre=?, descripcion=?, precio=?, categoria_id=? WHERE id_producto=?",
+                                    (nombre, descripcion, precio, categoria, id_producto))
+                        conexion.commit()
+                        conexion.close()
 
-            cursor.execute("UPDATE producto SET nombre=?, descripcion=?, precio=?, categoria_id=? WHERE id_producto=?",
-                           (nombre, descripcion,precio, categoria, id_producto))
-            conexion.commit()
-            conexion.close()
-            
-        except Exception as e:
-            print(f"Error al actualizar el producto: {str(e)}")
+                    except Exception as e:
+                        print(f"Error al actualizar el producto: {str(e)}")
+        except ValueError:
+            print("El precio debe ser un número válido")
+            return None
+
+  
+
 
     def eliminar(self, db):
         """

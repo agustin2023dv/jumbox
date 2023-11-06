@@ -3,15 +3,23 @@
     font-family: 'Nunito', sans-serif;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
 header, footer{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
     align-items: center;
     background-color: #baab6a;
-    padding-top: 30px;
-    padding-left: 20px;
-    padding-bottom: 40px;
+ /*   padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 40px;*/
+    padding: 60px;
     margin-left: 250px;
     font-size: 15px;
     height: 110px;
@@ -19,6 +27,12 @@ header, footer{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+footer{
+    margin-top: auto;
+}
+footer img{
+    margin-right: 20px;
+}
 
 li img{
     margin-left: 18px;
@@ -135,7 +149,15 @@ color: whitesmoke;
     
 }
 
+.editar-producto{
+    min-height: 100vh;
+    background-color: #fbea80;
+}
 .agregar-producto {
 
     margin: 20px;
+}
+
+option{
+    color: #000;
 }
