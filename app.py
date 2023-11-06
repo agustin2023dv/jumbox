@@ -157,7 +157,9 @@ def agregar_producto():
     
     return render_template('agregar_producto.html', categorias=categorias_producto)
 
-
+@app.route('/login')
+def login():
+    return render_template('login.html')
 # Ejecuta la aplicación Flask si este archivo es el punto de entrada principal
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=81, debug=True)

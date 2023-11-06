@@ -169,3 +169,13 @@ li img {
     margin: 20px;
 }
 
+.header-comun, .footer-comun{
+    background-color: #FFA500;
+    margin-right: 0;
+    margin-left: 0;
+}
+.login{
+    min-height: 100vh;
+
+    background-image: url(/static/img/logo_muy_grande.png);
+}
