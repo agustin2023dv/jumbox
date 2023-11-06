@@ -1,113 +1,118 @@
-*{
-    
+/* Establece la fuente principal para el documento */
+* {
     font-family: 'Nunito', sans-serif;
 }
 
+/* Establece márgenes y rellenos iniciales a 0 y garantiza que el contenido abarque toda la altura disponible */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-  }
+}
 
-header, footer{
+/* Estilos para el encabezado y el pie de página */
+header, footer {
     display: flex;
     justify-content: space-between;
     text-align: center;
     align-items: center;
     background-color: #baab6a;
- /*   padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 40px;*/
-    padding: 60px;
-    margin-left: 250px;
+    padding: 60px; /* Aplicación del espacio alrededor del encabezado y el pie de página */
+    margin-left: 250px; /* Margen izquierdo para ajustar el espacio del sidebar */
     font-size: 15px;
     height: 110px;
     color: #000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-footer{
+/* Estilos para el pie de página */
+footer {
     margin-top: auto;
 }
-footer img{
+
+/* Estilos para las imágenes dentro del pie de página */
+footer img {
     margin-right: 20px;
 }
 
-li img{
+/* Estilos para las imágenes dentro de las listas */
+li img {
     margin-left: 18px;
     margin-right: 10px;
 }
 
 /* Estilos del sidebar */
 .sidebar {
-    width: 250px; /* Ancho del sidebar */
-    height: 100%; /* Altura completa del viewport */
-    background-color: #204b5e; /* Color de fondo del sidebar */
-    color: #fff; /* Color del texto del sidebar */
-    position: fixed; /* Fija el sidebar en la página */
-    top: 0; /* Alinea el sidebar en la parte superior */
-    left: 0; /* Alinea el sidebar a la izquierda */
-    overflow-y: auto; /* Añade desplazamiento vertical si el contenido es demasiado largo */
-    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.4); }
+    width: 250px;
+    height: 100%;
+    background-color: #204b5e;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.4);
+}
 
+/* Estilos para las listas no ordenadas en el sidebar */
 .sidebar ul {
-    list-style-type: none; /* Quita los puntos de lista */
+    list-style-type: none;
     padding: 0;
 }
 
+/* Estilos para los elementos de la lista en el sidebar */
 .sidebar li {
     padding: 10px;
 }
 
-/* Estilos del contenido principal */
+/* Estilos para el contenido principal */
 .content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
-    margin-left: 250px; /* Margen a la izquierda para acomodar el sidebar */
+    align-items: flex-start;
+    margin-left: 250px;
     padding: 20px;
 }
 
-
-.cartel-bienvenido{
+/* Estilos para el cartel de bienvenida */
+.cartel-bienvenido {
     border-radius: 5px;
     width: 60%;
     padding-top: 15px;
-    padding-bottom: 15;
+    padding-bottom: 15px;
     padding-left: 25px;
-    
     background-color: #fbea80;
 }
 
-
-
-.opciones-sidebar li a{
+/* Estilos para los enlaces del sidebar */
+.opciones-sidebar li a {
     font-size: 20px;
     color: whitesmoke;
     text-align: start;
-    text-decoration: none; /* Elimina el subrayado predeterminado */
+    text-decoration: none;
 }
 
+/* Estilos cuando se pasa el mouse sobre los elementos del sidebar */
 .opciones-sidebar li:hover {
     background-color: #fbea80;
     transition: 0.75s;
     color: #204b5e;
-    text-decoration: none; /* Elimina el subrayado en estado de hover */
+    text-decoration: none;
 }
 
+/* Estilos para los enlaces del sidebar al pasar el mouse */
 .opciones-sidebar li a:hover {
-    color: #204b5e; 
-    
+    color: #204b5e;
 }
 
-.linea-divisora{
-
+/* Línea divisora horizontal */
+.linea-divisora {
     border-top: 3px solid #fbea80;
     width: 70%;
 }
 
-.boton{
+/* Estilos para los botones */
+.boton {
     padding: 4px;
     font-size: 20px;
     color: #204b5e;
@@ -115,13 +120,15 @@ li img{
     border-radius: 4px;
 }
 
-.boton:hover{
+/* Estilos al pasar el mouse sobre los botones */
+.boton:hover {
     text-decoration: none;
     background-color: #baab6a;
     color: whitesmoke;
 }
 
-.editar{
+/* Estilos para los enlaces "Editar" */
+.editar {
     border-radius: 2px;
     padding: 4px;
     margin-right: 2px;
@@ -129,35 +136,36 @@ li img{
     font-size: 16px;
 }
 
-.editar:hover{
-text-decoration: none;
-color: whitesmoke;
+/* Estilos al pasar el mouse sobre los enlaces "Editar" */
+.editar:hover {
+    text-decoration: none;
+    color: whitesmoke;
 }
-.eliminar{
+
+/* Estilos para los enlaces "Eliminar" */
+.eliminar {
     border-radius: 2px;
     padding: 4px;
     background-color: red;
     color: whitesmoke;
-    font-size:16px;
+    font-size: 16px;
 }
 
-.eliminar:hover{
+/* Estilos al pasar el mouse sobre los enlaces "Eliminar" */
+.eliminar:hover {
     background-color: rgb(169, 53, 53);
     text-decoration: none;
     color: whitesmoke;
-
-    
 }
 
-.editar-producto{
+/* Estilos para la página de edición de producto */
+.editar-producto {
     min-height: 100vh;
     background-color: #fbea80;
 }
-.agregar-producto {
 
+/* Estilos para el botón "Agregar producto" */
+.agregar-producto {
     margin: 20px;
 }
 
-option{
-    color: #000;
-}
